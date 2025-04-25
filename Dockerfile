@@ -14,5 +14,5 @@ RUN npm install
 # Define the entry point for the container
 CMD ["npm", "start"]
 
-#Expose port 80 for web server
-EXPOSE 80
+#Expose port 3000 for web server
+EXPOSE 3000
