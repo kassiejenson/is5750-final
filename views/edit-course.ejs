@@ -1,0 +1,138 @@
+<% const errorMessage = locals.errorMessage || '' %> <% const formData =
+locals.formData || {} %>
+
+<!-- Page Title -->
+<div class="page-title" data-aos="fade">
+  <div class="heading">
+    <div class="container">
+      <div class="row d-flex justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1>Edit Course</h1>
+          <p class="mb-0">
+            Fill out the form below to edit the course details.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="current">Edit Course</li>
+      </ol>
+    </div>
+  </nav>
+</div>
+<!-- End Page Title -->
+
+<!-- Contact Section -->
+<section id="contact" class="course creation section">
+  <!-- End Google Maps -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4">
+
+      <div class="col-lg-8">
+        <form
+          action="/courses/edit-course/<%= course.slug %>"
+          method="post"
+          enctype="multipart/form-data"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div class="row gy-4">
+            <div class="col-md-6">
+              <input
+                type="text"
+                name="title"
+                class="form-control"
+                id="name"
+                required
+                value="<%= course.title || '' %>"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                name="summary"
+                id="summary"
+                required
+                value="<%= course.summary || '' %>"
+              />
+            </div>
+
+            <div class="col-md-12">
+              <input
+                type="text"
+                class="form-control"
+                name="description"
+                id="description"
+                required
+                value="<%= course.description || '' %>"
+              />
+            </div>
+
+            <div class="col-md-12">
+              <input
+                type="text"
+                class="form-control"
+                name="price"
+                id="price"
+                required
+                value="<%= course.price || '' %>"
+              />
+            </div>
+
+            <div class="col-md-12">
+              <input
+                type="text"
+                class="form-control"
+                name="capacity"
+                id="capacity"
+                required
+                value="<%= course.capacity || '' %>"
+              />
+            </div>
+            <div class="col-md-12">
+                <label for="trainer">Select a Trainer:</label>
+                <select class="form-control" id="trainer" name="trainerId">
+                    <% trainers.forEach((trainer) => { %>
+                        <option value="<%= trainer._id.toString() %>"
+                            <%= course.trainer && course.trainer._id.toString() === trainer._id.toString() ? 'selected' : '' %>>
+                            <%= trainer.name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+            
+            <div class="form-control">
+                <label for="image">Image</label>
+                <input 
+                    type="file" 
+                    name="image" 
+                    id="image" >
+            </div>
+
+            <div class="col-md-12 text-center">
+              <div class="loading">Loading</div>
+              <% if (errorMessage) { %>
+              <div class="error-message" style="display: block">
+                <%= errorMessage %>
+              </div>
+              <% } %>
+              
+              <button type="submit">Update Course</button>
+              
+            </div>
+          </div>
+        </form>
+        <form action="/courses/delete-course/<%= course.slug %>" method="POST">
+                  <button class="btn-getstarted" type="submit">Delete Course</button>
+              </form>
+      </div>
+    </div>
+  </div>
+</section>

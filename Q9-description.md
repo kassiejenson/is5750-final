@@ -1,0 +1,2 @@
+<!--- Write a description of the functionality you implemented for question 9 here.  No special formatting is required; however, if desired you can use the basic markdown syntax (https://www.markdownguide.org/cheat-sheet/) and view the result by right-clicking the file and selecting 'Open Preview'. -->
+I implemented something similar to earlier in this assignment, in which I created an admin page where the admin could create a new event. This is permissioned both through displaying links and routing to only be accessible to admins. File upload is part of this as well.

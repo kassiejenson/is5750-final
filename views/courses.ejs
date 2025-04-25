@@ -1,0 +1,98 @@
+<!-- Page Title -->
+<div class="page-title" data-aos="fade">
+  <div class="heading">
+    <div class="container">
+      <div class="row d-flex justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1>Courses</h1>
+          <p class="mb-0">
+            Explore our diverse range of expert-led training courses designed to
+            help you gain valuable skills, enhance your career, and stay ahead
+            in your industry. Whether you're looking for professional
+            development or personal growth, Mentor has the right course for you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="current">Courses</li>
+      </ol>
+    </div>
+  </nav>
+</div>
+
+<!-- End Page Title -->
+
+<!-- Courses Section -->
+<section id="courses" class="courses section">
+  <% if (flashMessages.success) { %>
+    <%= flashMessages.success %>
+<% } %>
+  <div class="container">
+    <div class="row">
+      <% courses.forEach((course, index) => { %>
+        <% const capacityLeft = course.capacity - course.registrants.length %>
+        <% const courseFull = (capacityLeft <= 0) || false %>
+        <% const isAdmin = user && user.roles.includes('admin') %>
+        <% const userRegistered = user && user.courses.map(c => c.toString()).includes(course._id.toString()) %>
+      <div
+        class="col-lg-4 col-md-6 d-flex align-items-stretch"
+        data-aos="zoom-in"
+        data-aos-delay="<%= 100 + (index % 3) * 100 %>"
+      >
+        <div class="course-item">
+          <img
+            src="assets/img/<%= course.image %>"
+            class="img-fluid"
+            alt="<%= course.title %>"
+          />
+          <div class="course-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <p class="category"><%= course.trainer.expertise %></p>
+              <p class="price">$<%= course.price %></p>
+              <% if (courseFull) { %>
+                <button class="btn-getstarted" disabled >Course Full</button>
+              <% } else if (userRegistered) { %>
+                <form action="/courses/unregister/<%= course.slug %>" method="POST">
+                  <button class="btn-getstarted" type="submit">Unregister</button>
+                </form>
+              <% } else { %>
+                <a class="btn-getstarted" href="/courses/register/<%= course.slug %>">Register</a>
+              <% } %>
+            </div>
+            <% if (isAdmin) { %>
+              <a class="btn-getstarted" href="/courses/edit-course/<%= course.slug %>">Edit/Delete</a>
+            <% } %>
+            <h3>
+              <a href="/courses/<%= course.slug %>"><%= course.title %></a>
+            </h3>
+            <p class="description"><%= course.description %></p>
+            <div
+              class="trainer d-flex justify-content-between align-items-center"
+            >
+              <div class="trainer-profile d-flex align-items-center">
+                <img
+                  src="assets/img/team/<%= course.trainer.image %>"
+                  class="img-fluid"
+                  alt=""
+                />
+                <a href="" class="trainer-link"><%= course.trainer.name %></a>
+              </div>
+              <div class="trainer-rank d-flex align-items-center">
+                <i class="bi bi-person user-icon"></i>&nbsp;<%=
+                course.registrants.length %> &nbsp;&nbsp;
+                <i class="bi bi-heart heart-icon"></i>&nbsp;<%= course.likes %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<!-- /Courses Section -->
