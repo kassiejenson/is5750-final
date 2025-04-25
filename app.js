@@ -42,7 +42,6 @@ const userRoutes = require("./routes/user-routes");
 const errorController = require("./controllers/error-controller");
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@is5750-cluster.qfb7m.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority&appName=IS5750-cluster`;
-console.log('mongo url:', MONGODB_URI);
 
 const app = express();
 
